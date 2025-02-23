@@ -1,6 +1,7 @@
 # aliases
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias hyperconfig="nvim ~/.hyper.js"
 
 # git
 alias g='git'
@@ -20,7 +21,7 @@ alias gl='git log --oneline --graph'
 alias update='sudo apt update'
 alias upgrade='sudo apt upgrade -y'
 alias cls='clear'
-alias edit='nvim'
+alias vim='nvim'
 alias go_pkg='cd $PATH_PACKAGES_LOCAL && ls'
 alias system='htop'
 
