@@ -1,7 +1,6 @@
 # aliases
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias hyperconfig="nvim ~/.hyper.js"
 
 # git
 alias g='git'
@@ -39,7 +38,12 @@ alias tup='tmux select-pane -U'
 alias tdown='tmux select-pane -D'
 
 # EDN
-alias edn='cd ~/EDN-Projects/ && ls'
+alias edn='cd ~/EDN-Projects/ && echo "[END] PROJECTS::" && ls'
+alias jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN][JCHAT] PROJECTS::" && ls'
+
+# Workspace
+alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
 # script
 alias ide='~/.config/.script/tmux_layout.sh'
+alias config='cd ~/.config'
