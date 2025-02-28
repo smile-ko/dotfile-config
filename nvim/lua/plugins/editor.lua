@@ -211,19 +211,23 @@ return {
     end,
   },
 
-  -- {
-  --   "saghen/blink.cmp",
-  --   opts = {
-  --     completion = {
-  --       menu = {
-  --         winblend = vim.o.pumblend,
-  --       },
-  --     },
-  --     signature = {
-  --       window = {
-  --         winblend = vim.o.pumblend,
-  --       },
-  --     },
-  --   },
-  -- },
+  {
+    "saghen/blink.cmp",
+    opts = {
+      completion = {
+        menu = {
+          winblend = vim.o.pumblend,
+        },
+        -- Displays a preview of the selected item on the current line
+        ghost_text = {
+          enabled = false,
+        },
+      },
+      signature = {
+        window = {
+          winblend = vim.o.pumblend,
+        },
+      },
+    },
+  },
 }
