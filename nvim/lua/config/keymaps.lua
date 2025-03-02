@@ -57,3 +57,13 @@ keymap.set("n", "<C-w><left>", "<C-w><")
 keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
+
+-- Rest api
+keymap.set("n", "<leader>ho", ":Rest open<CR>", opts)
+keymap.set("n", "<leader>hr", ":Rest run<CR>", opts)
+keymap.set("n", "<leader>hl", ":Rest last<CR>", opts)
+keymap.set("n", "<leader>hL", ":Rest logs<CR>", opts)
+keymap.set("n", "<leader>hc", ":Rest cookies<CR>", opts)
+keymap.set("n", "<leader>he", ":Rest env show<CR>", opts)
+keymap.set("n", "<leader>hs", ":Rest env select<CR>", opts)
+keymap.set("n", "<leader>hS", ":Rest env set ", opts)

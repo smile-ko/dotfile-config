@@ -39,11 +39,11 @@ alias tdown='tmux select-pane -D'
 
 # EDN
 alias edn='cd ~/EDN-Projects/ && echo "[END] PROJECTS::" && ls'
-alias jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN][JCHAT] PROJECTS::" && ls'
+alias jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN]/[JCHAT] PROJECTS::" && ls'
 
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
 # script
-alias ide='~/.config/.script/tmux_layout.sh'
+alias cmd='~/.config/.script/tmux_layout.sh'
 alias config='cd ~/.config'
