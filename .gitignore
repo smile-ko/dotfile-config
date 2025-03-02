@@ -67,3 +67,6 @@ Pods/
 
 # Karabiner
 .config/karabiner/automatic_backups
+
+# termianl
+iterm2/
