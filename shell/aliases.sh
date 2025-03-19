@@ -23,6 +23,7 @@ alias cls='clear'
 alias vim='nvim'
 alias go_pkg='cd $PATH_PACKAGES_LOCAL && ls'
 alias system='htop'
+alias http='nvim ~/https/'
 
 # tmux
 alias tnew='tmux new -s'
@@ -37,13 +38,18 @@ alias tright='tmux select-pane -R'
 alias tup='tmux select-pane -U'
 alias tdown='tmux select-pane -D'
 
-# EDN
-alias edn='cd ~/EDN-Projects/ && echo "[END] PROJECTS::" && ls'
-alias jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN]/[JCHAT] PROJECTS::" && ls'
+# EDN Company
+alias edn='cd ~/EDN-Projects/ && echo "[END] SOURCE:" && ls'
+alias edn-jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN][JCHAT]:" && ls'
+alias edn-http='nvim ~/EDN-Projects/https/'
+alias jchatws='cd ~/EDN-Projects/jchat/jfchat-ws/ && nvim .'
+alias jfnotification='cd nvim ~/EDN-Projects/jchat/jfnotification/ && nvim .'
+alias jfchat="cd ~/EDN-Projects/jchat/jfchat/ && nvim ."
 
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
 # script
 alias cmd='~/.config/.script/tmux_layout.sh'
+alias cmd4='~/.config/.script/tmux_layout_4_equal_panes.sh'
 alias config='cd ~/.config'
