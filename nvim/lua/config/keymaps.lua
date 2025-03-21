@@ -67,3 +67,15 @@ keymap.set("n", "<leader>hc", ":Rest cookies<CR>", opts)
 keymap.set("n", "<leader>he", ":Rest env show<CR>", opts)
 keymap.set("n", "<leader>hs", ":Rest env select<CR>", opts)
 keymap.set("n", "<leader>hS", ":Rest env set ", opts)
+
+-- Avante
+keymap.set("n", "<C-l>", ":AvanteToggle<CR>", opts) -- Toggle sidebar
+-- keymap.set("n", "<leader>ua", ":AvanteAsk<CR>", { noremap = true, silent = true }) -- Ask AI
+-- keymap.set("n", "<leader>ub", ":AvanteBuild<CR>", { noremap = true, silent = true }) -- Build dependencies
+-- keymap.set("n", "<leader>uc", ":AvanteClear<CR>", { noremap = true, silent = true }) -- Clear chat history
+-- keymap.set("n", "<leader>uf", ":AvanteFocus<CR>", { noremap = true, silent = true }) -- Switch focus
+-- keymap.set("n", "<leader>ur", ":AvanteRefresh<CR>", { noremap = true, silent = true }) -- Refresh window
+-- keymap.set("n", "<leader>us", ":AvanteStop<CR>", { noremap = true, silent = true }) -- Stop AI request
+-- keymap.set("n", "<leader>up", ":AvanteSwitchProvider<CR>", { noremap = true, silent = true }) -- Switch AI provider
+-- keymap.set("n", "<leader>um", ":AvanteShowRepoMap<CR>", { noremap = true, silent = true }) -- Show repo map
+-- keymap.set("n", "<leader>ul", ":AvanteModels<CR>", { noremap = true, silent = true }) -- Show list of models
