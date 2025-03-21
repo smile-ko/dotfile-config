@@ -7,14 +7,14 @@ return {
     openai = {
       endpoint = "https://api.openai.com/v1",
       model = "gpt-4o-mini",
+      -- model = "gpt-4o",
       timeout = 30000,
       temperature = 0,
       max_completion_tokens = 8192,
     },
     mappings = {
-      ask = "<leader>ua", -- ask
-      edit = "<leader>ue", -- edit
-      refresh = "<leader>ur", -- refresh
+      ask = "<C-j>", -- ask
+      edit = "<C-k>", -- edit
     },
   },
   build = "make",
