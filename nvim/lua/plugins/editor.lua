@@ -156,7 +156,6 @@ return {
       local actions = require("telescope.actions")
       local fb_actions = require("telescope").extensions.file_browser.actions
 
-      -- Đảm bảo opts.defaults không bị nil
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         wrap_results = true,
         layout_strategy = "horizontal",
