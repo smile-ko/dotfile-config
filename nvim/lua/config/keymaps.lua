@@ -73,7 +73,6 @@ keymap.set("n", "<C-l>", ":AvanteToggle<CR>", opts) -- Toggle sidebar
 -- keymap.set("n", "<leader>ua", ":AvanteAsk<CR>", { noremap = true, silent = true }) -- Ask AI
 -- keymap.set("n", "<leader>ub", ":AvanteBuild<CR>", { noremap = true, silent = true }) -- Build dependencies
 -- keymap.set("n", "<leader>uc", ":AvanteClear<CR>", { noremap = true, silent = true }) -- Clear chat history
--- keymap.set("n", "<C-k>", ":AvanteEdit<CR>", { noremap = true, silent = true }) -- Edit code block
 -- keymap.set("n", "<leader>uf", ":AvanteFocus<CR>", { noremap = true, silent = true }) -- Switch focus
 -- keymap.set("n", "<leader>ur", ":AvanteRefresh<CR>", { noremap = true, silent = true }) -- Refresh window
 -- keymap.set("n", "<leader>us", ":AvanteStop<CR>", { noremap = true, silent = true }) -- Stop AI request
