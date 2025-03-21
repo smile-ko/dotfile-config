@@ -3,14 +3,13 @@ return {
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
   opts = {
-    -- add any opts here
-    provider = "claude", -- Recommend using Claude
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      -- model = "claude-3-5-sonnet-20241022",
-      model = "claude-3-haiku-20240307",
+    provider = "openai",
+    openai = {
+      endpoint = "https://api.openai.com/v1",
+      model = "gpt-4o-mini",
+      timeout = 30000,
       temperature = 0,
-      max_tokens = 4096,
+      max_completion_tokens = 8192,
     },
     mappings = {
       ask = "<leader>ua", -- ask
@@ -18,9 +17,7 @@ return {
       refresh = "<leader>ur", -- refresh
     },
   },
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
-  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "stevearc/dressing.nvim",
