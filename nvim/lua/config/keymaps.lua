@@ -69,7 +69,7 @@ keymap.set("n", "<leader>hs", ":Rest env select<CR>", opts)
 keymap.set("n", "<leader>hS", ":Rest env set ", opts)
 
 -- Avante
-keymap.set("n", "<C-l>", ":AvanteToggle<CR>", opts) -- Toggle sidebar
+-- keymap.set("n", "<C-l>", ":AvanteToggle<CR>", opts) -- Toggle sidebar
 -- keymap.set("n", "<leader>ua", ":AvanteAsk<CR>", { noremap = true, silent = true }) -- Ask AI
 -- keymap.set("n", "<leader>ub", ":AvanteBuild<CR>", { noremap = true, silent = true }) -- Build dependencies
 -- keymap.set("n", "<leader>uc", ":AvanteClear<CR>", { noremap = true, silent = true }) -- Clear chat history

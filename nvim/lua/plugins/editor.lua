@@ -199,8 +199,8 @@ return {
                   actions.move_selection_next(prompt_bufnr)
                 end
               end,
-              ["<PageUp>"] = actions.preview_scrolling_up,
-              ["<PageDown>"] = actions.preview_scrolling_down,
+              ["<S-PageUp>"] = actions.preview_scrolling_up,
+              ["<S-PageDown>"] = actions.preview_scrolling_down,
             },
           },
         },
