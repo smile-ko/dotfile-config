@@ -13,8 +13,8 @@ return {
       max_completion_tokens = 8192,
     },
     mappings = {
-      ask = "<leader-j>", -- ask
-      edit = "<leader-k>", -- edit
+      ask = "<leader>j", -- ask
+      edit = "<leader>k", -- edit
     },
   },
   build = "make",
