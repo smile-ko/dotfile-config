@@ -24,6 +24,8 @@ alias vim='nvim'
 alias go_pkg='cd $PATH_PACKAGES_LOCAL && ls'
 alias system='htop'
 alias http='nvim ~/https/'
+alias google-s='open -a Google\ Chrome "https://google.com"'
+alias google='open -a Google\ Chrome'
 
 # tmux
 alias tnew='tmux new -s'
