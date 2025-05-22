@@ -24,10 +24,10 @@ return {
 
     spec = {
       {
-        {
-          "<leader>h",
-          group = "Rest API",
-        },
+        -- {
+        --   "<leader>h",
+        --   group = "Rest API",
+        -- },
         {
           "<leader>a",
           group = "AI Tools",
