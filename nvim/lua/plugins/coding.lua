@@ -78,6 +78,7 @@ return {
     end,
   },
 
+  -- Symbols outline
   {
     "simrat39/symbols-outline.nvim",
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
@@ -87,6 +88,7 @@ return {
     },
   },
 
+  -- Http client
   {
     "rest-nvim/rest.nvim",
     dependencies = {
@@ -235,6 +237,8 @@ return {
       setup = {},
     },
   },
+
+  -- LSP keymaps
   {
     "neovim/nvim-lspconfig",
     opts = function()
@@ -253,8 +257,8 @@ return {
     end,
   },
 
+  -- Treesitter
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -319,6 +323,7 @@ return {
     end,
   },
 
+  -- Go language
   {
     "ray-x/go.nvim",
     dependencies = { -- optional packages

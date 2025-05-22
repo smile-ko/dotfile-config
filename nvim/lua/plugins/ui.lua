@@ -53,6 +53,7 @@ return {
     end,
   },
 
+  -- Notification
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -60,6 +61,7 @@ return {
     },
   },
 
+  -- Snacks
   {
     "snacks.nvim",
     opts = {

@@ -1,4 +1,5 @@
 return {
+  -- Flash
   {
     enabled = false,
     "folke/flash.nvim",
@@ -13,6 +14,7 @@ return {
     },
   },
 
+  -- MiniHipatterns
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
@@ -35,6 +37,7 @@ return {
     },
   },
 
+  -- git
   {
     "dinhhuy258/git.nvim",
     event = "BufReadPre",
@@ -48,6 +51,7 @@ return {
     },
   },
 
+  -- telescope
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -211,42 +215,7 @@ return {
     end,
   },
 
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      {
-        "giuxtaposition/blink-cmp-copilot",
-      },
-    },
-    opts = {
-      completion = {
-        menu = {
-          winblend = vim.o.pumblend,
-        },
-        -- Displays a preview of the selected item on the current line
-        ghost_text = {
-          enabled = false,
-        },
-      },
-      signature = {
-        window = {
-          winblend = vim.o.pumblend,
-        },
-      },
-      sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot" },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-cmp-copilot",
-            score_offset = 100,
-            async = true,
-          },
-        },
-      },
-    },
-  },
-
+  -- which-key
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
