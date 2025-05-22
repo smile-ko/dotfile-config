@@ -63,3 +63,20 @@ keymap.set("n", "<leader>hc", ":Rest cookies<CR>", opts)
 keymap.set("n", "<leader>he", ":Rest env show<CR>", opts)
 keymap.set("n", "<leader>hs", ":Rest env select<CR>", opts)
 keymap.set("n", "<leader>hS", ":Rest env set ", opts)
+
+-- Avante AI
+keymap.set("n", "<leader>at", "<cmd>AvanteToggle<CR>", { desc = "Toggle AI chat" })
+keymap.set("n", "<leader>aT", "<cmd>AvanteChatNew<CR>", { desc = "New AI chat" })
+keymap.set("v", "<leader>ae", "<cmd>AvanteEdit<CR>", { desc = "AI Edit selected" })
+keymap.set("n", "<leader>am", "<cmd>AvanteModels<CR>", { desc = "Change AI model" })
+keymap.set("n", "<leader>ah", "<cmd>AvanteHistory<CR>", { desc = "AI Chat history" })
+keymap.set("n", "<leader>as", function()
+  if vim.bo.filetype == "copilot-chat" then
+    vim.cmd("CopilotChatStop")
+  else
+    vim.cmd("AvanteStop")
+  end
+end, { desc = "AI Stop" })
+keymap.set("n", "<M-F>", function()
+  require("avante.api").add_buffer_files()
+end, { desc = "AI Add buffer file" })
