@@ -65,7 +65,7 @@ return {
   {
     "snacks.nvim",
     opts = {
-      scroll = { enabled = false },
+      -- scroll = { enabled = false },
       dashboard = {
         preset = {
           pick = function(cmd, opts)
@@ -171,6 +171,7 @@ return {
     end,
   },
 
+  -- ZenMode
   {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
