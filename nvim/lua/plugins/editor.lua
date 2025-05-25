@@ -244,8 +244,34 @@ return {
         {
           {
             "<leader>r",
-            group = "Rest run",
+            hidden = true,
           },
+          { "<leader>C", hidden = true },
+          {
+            "<leader>D",
+            hidden = true,
+          },
+          {
+            "<leader>K",
+            hidden = true,
+          },
+          {
+            "<leader>o",
+            hidden = true,
+          },
+          {
+            "<leader>O",
+            hidden = true,
+          },
+          {
+            "<leader>p",
+            hidden = true,
+          },
+          {
+            "<leader>P",
+            hidden = true,
+          },
+          { "<leader>a", group = "AI" },
         },
       },
     },
