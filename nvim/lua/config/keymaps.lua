@@ -54,6 +54,14 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
+-- Move line up/down (Normal mode)
+keymap.set("n", "<A-j>", ":m .+1<CR>==", opts)
+keymap.set("n", "<A-k>", ":m .-2<CR>==", opts)
+
+-- Move block up/down (Visual mode)
+keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+
 -- Rest api
 -- keymap.set("n", "<leader>ho", ":Rest open<CR>", opts)
 keymap.set("n", "<leader>r", ":Rest run<CR>", opts)
