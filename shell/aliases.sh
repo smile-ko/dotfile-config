@@ -42,11 +42,7 @@ alias tdown='tmux select-pane -D'
 
 # EDN Company
 alias edn='cd ~/EDN-Projects/ && echo "[END] SOURCE:" && ls'
-alias edn-jchat='cd ~/EDN-Projects/jchat/ && echo "[EDN][JCHAT]:" && ls'
 alias edn-http='nvim ~/EDN-Projects/https/'
-alias jchatws='cd ~/EDN-Projects/jchat/jfchat-ws/ && nvim .'
-alias jfnotification='cd nvim ~/EDN-Projects/jchat/jfnotification/ && nvim .'
-alias jfchat="cd ~/EDN-Projects/jchat/jfchat/ && nvim ."
 
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
