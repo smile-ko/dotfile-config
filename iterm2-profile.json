@@ -1,11 +1,5 @@
 {
-  "Ansi 0 Color" : {
-    "Red Component" : 0.078431375324726105,
-    "Color Space" : "sRGB",
-    "Blue Component" : 0.11764705926179886,
-    "Alpha Component" : 1,
-    "Green Component" : 0.098039217293262454
-  },
+  "Non-ASCII Anti Aliased" : true,
   "Ansi 15 Color (Dark)" : {
     "Red Component" : 0.99999600648880005,
     "Color Space" : "sRGB",
@@ -13,8 +7,20 @@
     "Alpha Component" : 1,
     "Green Component" : 1
   },
-  "Close Sessions On End" : true,
-  "Badge Max Width" : 0.5,
+  "Ansi 12 Color (Light)" : {
+    "Red Component" : 0.65349078178405762,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0.9485321044921875,
+    "Alpha Component" : 1,
+    "Green Component" : 0.67044717073440552
+  },
+  "Foreground Color (Dark)" : {
+    "Red Component" : 1,
+    "Color Space" : "P3",
+    "Blue Component" : 1,
+    "Alpha Component" : 1,
+    "Green Component" : 1
+  },
   "Cursor Text Color" : {
     "Red Component" : 1,
     "Color Space" : "sRGB",
@@ -60,9 +66,9 @@
             "base: compression resistance" : 1
           },
           "layout advanced configuration dictionary value" : {
-            "algorithm" : 0,
             "auto-rainbow style" : 0,
-            "remove empty components" : false
+            "remove empty components" : false,
+            "algorithm" : 0
           }
         }
       },
@@ -81,9 +87,9 @@
             "base: compression resistance" : 1
           },
           "layout advanced configuration dictionary value" : {
-            "algorithm" : 0,
             "auto-rainbow style" : 0,
-            "remove empty components" : false
+            "remove empty components" : false,
+            "algorithm" : 0
           }
         }
       },
@@ -102,9 +108,9 @@
             "base: compression resistance" : 1
           },
           "layout advanced configuration dictionary value" : {
-            "algorithm" : 0,
             "auto-rainbow style" : 0,
-            "remove empty components" : false
+            "remove empty components" : false,
+            "algorithm" : 0
           }
         }
       },
@@ -179,7 +185,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.098039217293262454
   },
-  "Transparency" : 0.13001647949218748,
+  "Transparency" : 0.050016479492187502,
   "Use Bright Bold" : true,
   "Horizontal Spacing" : 1,
   "Ansi 13 Color (Light)" : {
@@ -403,7 +409,7 @@
   },
   "Set Local Environment Vars" : 2,
   "Faint Text Alpha (Dark)" : 0.5,
-  "Blur Radius" : 0.24887416294642858,
+  "Blur Radius" : 11.248874162946429,
   "Drag to Scroll in Alternate Screen Mode Disabled" : false,
   "Rows" : 48,
   "Place Prompt at First Column" : false,
@@ -500,7 +506,6 @@
     "Alpha Component" : 1,
     "Green Component" : 1
   },
-  "Background Image Location" : "\/Users\/vdtien2908\/Documents\/Background\/backiee-286745-landscape.jpg",
   "Icon" : 0,
   "Ansi 5 Color (Dark)" : {
     "Red Component" : 0.752197265625,
@@ -509,7 +514,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.24931684136390686
   },
-  "Window Type" : 1,
+  "Window Type" : 0,
   "Allow Title Setting" : true,
   "ASCII Anti Aliased" : true,
   "Use Tab Color (Dark)" : false,
@@ -760,19 +765,13 @@
     "Alpha Component" : 1,
     "Green Component" : 0
   },
-  "Non-ASCII Anti Aliased" : true,
-  "Ansi 12 Color (Light)" : {
-    "Red Component" : 0.65349078178405762,
+  "Ansi 0 Color" : {
+    "Red Component" : 0.078431375324726105,
     "Color Space" : "sRGB",
-    "Blue Component" : 0.9485321044921875,
+    "Blue Component" : 0.11764705926179886,
     "Alpha Component" : 1,
-    "Green Component" : 0.67044717073440552
+    "Green Component" : 0.098039217293262454
   },
-  "Foreground Color (Dark)" : {
-    "Red Component" : 1,
-    "Color Space" : "P3",
-    "Blue Component" : 1,
-    "Alpha Component" : 1,
-    "Green Component" : 1
-  }
+  "Close Sessions On End" : true,
+  "Badge Max Width" : 0.5
 }
