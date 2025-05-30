@@ -62,16 +62,6 @@ keymap.set("n", "<A-k>", ":m .-2<CR>==", opts)
 keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
--- Rest api
--- keymap.set("n", "<leader>ho", ":Rest open<CR>", opts)
-keymap.set("n", "<leader>r", ":Rest run<CR>", opts)
--- keymap.set("n", "<leader>hl", ":Rest last<CR>", opts)
--- keymap.set("n", "<leader>hL", ":Rest logs<CR>", opts)
--- keymap.set("n", "<leader>hc", ":Rest cookies<CR>", opts)
--- keymap.set("n", "<leader>he", ":Rest env show<CR>", opts)
--- keymap.set("n", "<leader>hs", ":Rest env select<CR>", opts)
--- keymap.set("n", "<leader>hS", ":Rest env set ", opts)
-
 -- Avante AI
 keymap.set("n", "<leader>at", "<cmd>AvanteToggle<CR>", { desc = "Toggle AI chat" })
 keymap.set("n", "<leader>aT", "<cmd>AvanteChatNew<CR>", { desc = "New AI chat" })

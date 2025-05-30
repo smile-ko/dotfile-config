@@ -36,6 +36,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.tailwind" },
     { import = "lazyvim.plugins.extras.lang.vue" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+    { import = "lazyvim.plugins.extras.util.rest" },
     { import = "plugins" },
   },
   defaults = {
