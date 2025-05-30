@@ -111,6 +111,7 @@ return {
         "luacheck",
         "shellcheck",
         "shfmt",
+        "vue-language-server",
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
