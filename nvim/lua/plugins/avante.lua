@@ -8,7 +8,6 @@ return {
   },
   opts = (function()
     local opts = {
-      github_token = os.getenv("GITHUB_TOKEN"), -- Set your GitHub token here
       provider = "copilot/gpt-4.1",
       auto_suggestions_provider = "copilot/gpt-4.1",
       mode = "legacy",
