@@ -40,10 +40,6 @@ alias tright='tmux select-pane -R'
 alias tup='tmux select-pane -U'
 alias tdown='tmux select-pane -D'
 
-# EDN Company
-alias edn='cd ~/EDN-Projects/ && echo "[END] SOURCE:" && ls'
-alias edn-http='nvim ~/EDN-Projects/https/'
-
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
