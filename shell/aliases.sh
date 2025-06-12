@@ -42,6 +42,7 @@ alias tdown='tmux select-pane -D'
 
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
+alias go-src='cd ~/go/src/github.com/smile-ko && echo "My Source Code::" && ls'
 
 # script
 alias cmd='~/.config/.script/tmux_layout.sh'
