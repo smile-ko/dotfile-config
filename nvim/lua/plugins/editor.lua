@@ -319,16 +319,4 @@ return {
     version = "*",
     config = true,
   },
-
-  -- mutiple cursors
-  {
-    "mg979/vim-visual-multi",
-    event = "VeryLazy",
-    init = function()
-      vim.g.VM_mouse_mappings = 0 -- Disable mouse mappings
-      vim.g.VM_leader = "<C-n>" -- Set leader key for visual multi
-      vim.g.VM_highlight_matches = 1 -- Highlight matches
-      vim.g.VM_show_warnings = 0 -- Disable warnings
-    end,
-  },
 }
