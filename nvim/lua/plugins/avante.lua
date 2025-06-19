@@ -11,54 +11,68 @@ return {
       provider = "copilot/gpt-4.1",
       auto_suggestions_provider = "copilot/gpt-4.1",
       mode = "legacy",
-      vendors = {
+      providers = {
+        ["copilot/gpt-4.1"] = {
+          __inherited_from = "copilot",
+          model = "gpt-4.1",
+          display_name = "copilot/gpt-4.1",
+          extra_request_body = {
+            max_tokens = 32768,
+          },
+          disable_tools = true,
+        },
         ["copilot/claude-3.5"] = {
           __inherited_from = "copilot",
           model = "claude-3.5-sonnet",
           display_name = "copilot/claude-3.5",
-          max_tokens = 65536,
+          extra_request_body = {
+            max_tokens = 65536,
+          },
           disable_tools = true,
         },
         ["copilot/claude-3.7"] = {
           __inherited_from = "copilot",
           model = "claude-3.7-sonnet",
           display_name = "copilot/claude-3.7",
-          max_tokens = 65536,
+          extra_request_body = {
+            max_tokens = 65536,
+          },
           disable_tools = true,
         },
         ["copilot/claude-3.7-thought"] = {
           __inherited_from = "copilot",
           model = "claude-3.7-sonnet-thought",
           display_name = "copilot/claude-3.7-thought",
-          max_tokens = 65536,
+          extra_request_body = {
+            max_tokens = 65536,
+          },
           disable_tools = true,
         },
         ["copilot/o4-mini"] = {
           __inherited_from = "copilot",
           model = "o4-mini",
           display_name = "copilot/o4-mini",
-          max_tokens = 100000,
-          disable_tools = true,
-        },
-        ["copilot/gpt-4.1"] = {
-          __inherited_from = "copilot",
-          model = "gpt-4.1",
-          display_name = "copilot/gpt-4.1",
-          max_tokens = 32768,
+          extra_request_body = {
+            max_tokens = 100000,
+          },
           disable_tools = true,
         },
         ["copilot/gemini-2.0"] = {
           __inherited_from = "copilot",
           model = "gemini-2.0-flash-001",
           display_name = "copilot/gemini-2.0-flash",
-          max_tokens = 8192,
+          extra_request_body = {
+            max_tokens = 8192,
+          },
           disable_tools = true,
         },
         ["copilot/gemini-2.5"] = {
           __inherited_from = "copilot",
           model = "gemini-2.5-pro",
           display_name = "copilot/gemini-2.5-pro",
-          max_tokens = 65536,
+          extra_request_body = {
+            max_tokens = 65536,
+          },
           disable_tools = true,
         },
       },
@@ -169,7 +183,7 @@ return {
     }
 
     for _, model in ipairs(hidden_models) do
-      opts[model] = { hide_in_model_selector = true }
+      opts.providers[model] = { hide_in_model_selector = true }
     end
 
     return opts
