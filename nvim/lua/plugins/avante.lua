@@ -9,7 +9,7 @@ return {
   opts = (function()
     local opts = {
       provider = "copilot/gpt-4.1",
-      auto_suggestions_provider = nil,
+      auto_suggestions_provider = "copilot/gpt-4.1",
       mode = "legacy",
       providers = {
         ["copilot/gpt-4.1"] = {
