@@ -68,6 +68,8 @@ Pods/
 # Karabiner
 .config/karabiner/automatic_backups
 
-# termianl
-iterm2/
-github-copilot/apps.json
+# Configstore (CLI tool caches)
+configstore/
+
+# GitHub Copilot
+github-copilot/
