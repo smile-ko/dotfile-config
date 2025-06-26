@@ -45,6 +45,6 @@ alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 alias go-src='cd ~/go/src/github.com/smile-ko && echo "My Source Code::" && ls'
 
 # script
-alias cmd='~/.config/.script/tmux_layout.sh'
-alias cmd4='~/.config/.script/tmux_layout_4_equal_panes.sh'
+alias cmd='~/.config/script/tmux_layout.sh'
+alias cmd4='~/.config/script/tmux_layout_4_equal_panes.sh'
 alias config='cd ~/.config'
