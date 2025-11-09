@@ -21,9 +21,7 @@ alias update='sudo apt update'
 alias upgrade='sudo apt upgrade -y'
 alias cls='clear'
 alias vim='nvim'
-alias go_pkg='cd $PATH_PACKAGES_LOCAL && ls'
 alias system='htop'
-alias http='nvim ~/https/'
 alias google-s='open -a Google\ Chrome "https://google.com"'
 alias google='open -a Google\ Chrome'
 
@@ -42,9 +40,7 @@ alias tdown='tmux select-pane -D'
 
 # Workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
-alias go-src='cd ~/go/src/github.com/smile-ko && echo "My Source Code::" && ls'
 
 # script
 alias cmd='~/.config/script/tmux_layout.sh'
-alias cmd4='~/.config/script/tmux_layout_4_equal_panes.sh'
 alias config='cd ~/.config'
