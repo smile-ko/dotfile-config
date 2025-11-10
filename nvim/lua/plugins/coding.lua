@@ -102,7 +102,6 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
-        "rust-analyzer",
         "prisma-language-server",
         "gopls",
       })
@@ -266,7 +265,6 @@ return {
         "http",
         "java",
         "php",
-        "rust",
         "scss",
         "sql",
         "svelte",
