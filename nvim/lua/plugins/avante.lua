@@ -8,40 +8,19 @@ return {
   },
   opts = (function()
     local opts = {
-      provider = "openai/gpt-4o-mini",
-      auto_suggestions_provider = "openai/gpt-4o-mini",
+      provider = "claude/haiku-4.5",
+      auto_suggestions_provider = "claude/haiku-4.5",
       mode = "legacy",
       providers = {
-        ["openai/gpt-4o"] = {
-          __inherited_from = "openai",
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4o",
-          display_name = "openai/gpt-4o",
-          api_key_name = "OPENAI_API_KEY",
+        ["claude/haiku-4.5"] = {
+          __inherited_from = "claude",
+          endpoint = "https://api.anthropic.com",
+          model = "claude-3-5-haiku-20241022",
+          display_name = "claude/haiku-4.5",
+          api_key_name = "ANTHROPIC_API_KEY",
           extra_request_body = {
-            max_tokens = 32768,
-          },
-          disable_tools = true,
-        },
-        ["openai/gpt-4.1"] = {
-          __inherited_from = "openai",
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4.1",
-          display_name = "openai/gpt-4.1",
-          api_key_name = "OPENAI_API_KEY",
-          extra_request_body = {
-            max_tokens = 32768,
-          },
-          disable_tools = true,
-        },
-        ["openai/gpt-4o-mini"] = {
-          __inherited_from = "openai",
-          endpoint = "https://api.openai.com/v1",
-          model = "gpt-4o-mini",
-          display_name = "openai/gpt-4o-mini",
-          api_key_name = "OPENAI_API_KEY",
-          extra_request_body = {
-            max_tokens = 16384,
+            max_tokens = 8192,
+            temperature = 0.3,
           },
           disable_tools = true,
         },
@@ -138,7 +117,6 @@ return {
 
     local hidden_models = {
       "copilot",
-      "claude",
       "gemini",
       "vertex",
     }
