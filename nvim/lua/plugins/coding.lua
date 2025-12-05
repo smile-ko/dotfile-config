@@ -41,7 +41,7 @@ return {
 
   -- Go forward/backward with square brackets
   {
-    "echasnovski/mini.bracketed",
+    "nvim-mini/mini.bracketed",
     event = "BufReadPost",
     config = function()
       local bracketed = require("mini.bracketed")
@@ -90,7 +90,7 @@ return {
 
   -- tools
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "stylua",
@@ -232,26 +232,29 @@ return {
   -- LSP keymaps
   {
     "neovim/nvim-lspconfig",
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      vim.list_extend(keys, {
-        {
-          "gd",
-          function()
-            -- DO NOT RESUSE WINDOW
-            require("telescope.builtin").lsp_definitions({ reuse_win = false })
-          end,
-          desc = "Goto Definition",
-          has = "definition",
+    opts = {
+      servers = {
+        ["*"] = {
+          keys = {
+            {
+              "gd",
+              function()
+                require("telescope.builtin").lsp_definitions({ reuse_win = false })
+              end,
+              desc = "Goto Definition",
+              has = "definition",
+            },
+          },
         },
-      })
-    end,
+      },
+    },
   },
 
   -- Treesitter
   { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
   {
     "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
     opts = {
       ensure_installed = {
         "astro",
@@ -270,11 +273,9 @@ return {
         "svelte",
       },
 
-      -- matchup = {
-      -- 	enable = true,
-      -- },
+      highlight = { enable = true },
+      indent = { enable = true },
 
-      -- https://github.com/nvim-treesitter/playground#query-linter
       query_linter = {
         enable = true,
         use_virtual_text = true,
@@ -283,32 +284,14 @@ return {
 
       playground = {
         enable = true,
-        disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = true, -- Whether the query persists across vim sessions
-        keybindings = {
-          toggle_query_editor = "o",
-          toggle_hl_groups = "i",
-          toggle_injected_languages = "t",
-          toggle_anonymous_nodes = "a",
-          toggle_language_display = "I",
-          focus_language = "f",
-          unfocus_language = "F",
-          update = "R",
-          goto_node = "<cr>",
-          show_help = "?",
-        },
+        updatetime = 25,
+        persist_queries = true,
       },
     },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
 
-      -- MDX
-      vim.filetype.add({
-        extension = {
-          mdx = "mdx",
-        },
-      })
+    init = function()
+      -- support MDX
+      vim.filetype.add({ extension = { mdx = "mdx" } })
       vim.treesitter.language.register("markdown", "mdx")
     end,
   },
@@ -323,14 +306,107 @@ return {
         },
         -- Displays a preview of the selected item on the current line
         ghost_text = {
-          enabled = false,
+          enabled = true,
         },
       },
+
       signature = {
         window = {
           winblend = vim.o.pumblend,
         },
       },
     },
+  },
+
+  -- Copilot
+  {
+    "github/copilot.vim",
+    event = "InsertEnter",
+  },
+
+  -- Copilot Chat
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    opts = function(_, opts)
+      opts.model = "gpt-5.1-codex"
+
+      opts.show_help = false
+      opts.show_folds = false
+      opts.highlight_selection = false
+      opts.highlight_headers = false
+      opts.auto_insert_mode = true
+
+      opts.prompts = vim.tbl_extend("force", opts.prompts or {}, {
+        Commit = {
+          prompt = "#git:staged\n\nWrite commit message for the change with commitizen convention. Max 50-char title, wrap body at 72. Return in ```gitcommit``` block.",
+          selection = false,
+          context = false,
+          callback = function(response)
+            ---@type string|nil
+            local commit_message = response:match("```gitcommit\n(.-)\n```")
+            if commit_message then
+              if vim.fn.confirm("Create commit?\n" .. commit_message, "&Yes\n&No", 2) == 1 then
+                vim.fn.system({ "git", "commit", "-m", commit_message })
+                if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) == 1 then
+                  vim.fn.system({ "git", "push" })
+                end
+                vim.defer_fn(function()
+                  vim.cmd("close")
+                end, 20)
+              end
+            end
+          end,
+        },
+
+        Explain = {
+          prompt = "/COPILOT_EXPLAIN\n\nWrite an explanation for selected code in paragraph form.",
+        },
+
+        Fix = {
+          prompt = "/COPILOT_GENERATE\n\nAnalyze code, find issues, correct, improve quality + efficiency.",
+        },
+
+        Grammar = {
+          prompt = "/COPILOT_INSTRUCTIONS\n\nFix grammar without modifying syntax, formatting, variables.",
+        },
+
+        Review = {
+          prompt = "/COPILOT_REVIEW\n\nReview selected code, give suggestions, quality, structure, safety.",
+        },
+      })
+
+      opts.mappings = vim.tbl_extend("force", opts.mappings or {}, {
+        complete = { insert = "<Tab>" },
+        close = { normal = "<leader>x" },
+        reset = { normal = "<leader>r" },
+        submit_prompt = { normal = "<CR>", insert = "<C-s>" },
+        toggle_sticky = { normal = "<leader>ts" },
+        clear_stickies = { normal = "<leader>tS" },
+        accept_diff = { normal = "<leader>da" },
+        jump_to_diff = { normal = "<leader>dj" },
+        quickfix_answers = { normal = "<leader>qa" },
+        quickfix_diffs = { normal = "<leader>qd" },
+        yank_diff = { normal = "<leader>dy", register = '"' },
+        show_diff = { normal = "<leader>sd" },
+        show_info = { normal = "<leader>si" },
+        show_context = { normal = "<leader>sc" },
+        show_help = { normal = "<leader>h" },
+      })
+
+      return opts
+    end,
+    config = function(_, opts)
+      local chat = require("CopilotChat")
+      chat.setup(opts)
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "copilot-chat",
+        callback = function()
+          vim.keymap.set("i", "<Tab>", function()
+            return require("CopilotChat.actions").complete()
+          end, { buffer = true })
+        end,
+      })
+    end,
   },
 }

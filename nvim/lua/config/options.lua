@@ -42,6 +42,9 @@ vim.opt.formatoptions:append({ "r" })
 vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
 vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
 
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<M-CR>", 'copilot#Accept("<CR>")', { expr = true, silent = true })
+
 if vim.fn.has("nvim-0.8") == 1 then
   vim.opt.cmdheight = 0
 end
