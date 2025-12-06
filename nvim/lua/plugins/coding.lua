@@ -359,32 +359,43 @@ return {
           prompt = [[
 #git:staged
 
-Generate a commit message using the **Conventional Commit** format.
-Requirements:
-
-- The commit must be written in **English**.
-- Title ≤ 50 characters.
-- Body text should be wrapped at 72 characters per line.
-- The result must be returned inside a code block with language ```gitcommit```.
-
-Write a clean, meaningful commit message that describes exactly what changed.
+Generate a Conventional Commit message.
+Rules:
+- English
+- Title ≤ 50 chars
+- Body wrapped at 72 chars
+- Format output inside ```gitcommit``` block
 ]],
-          selection = false,
           context = false,
+          selection = false,
+
           callback = function(response)
-            ---@type string|nil
-            local msg = response:match("```gitcommit\n(.-)\n```")
-            if not msg then
+            local text = response.text or response.content or tostring(response)
+
+            if not text or text == "" then
+              vim.notify("❗ No response text from CopilotChat", vim.log.levels.ERROR)
               return
             end
-            if vim.fn.confirm("Create commit with this message?\n" .. msg, "&Yes\n&No", 2) == 1 then
-              vim.fn.system({ "git", "commit", "-m", msg })
-              if vim.fn.confirm("Push to remote now?", "&Yes\n&No", 2) == 1 then
+
+            local commit_message = text:match("```gitcommit\n(.-)\n```")
+
+            if not commit_message then
+              vim.notify("⚠ Could not extract commit message — print returned text for debug", vim.log.levels.WARN)
+              print(text)
+              return
+            end
+
+            if vim.fn.confirm("Create commit?\n\n" .. commit_message, "&Yes\n&No", 2) == 1 then
+              vim.fn.system({ "git", "commit", "-m", commit_message })
+
+              if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) == 1 then
                 vim.fn.system({ "git", "push" })
               end
+
+              -- auto close window
               vim.defer_fn(function()
                 vim.cmd("close")
-              end, 20)
+              end, 50)
             end
           end,
         },
