@@ -2,6 +2,9 @@
 
 Dotfiles configuration for development environment, including Neovim, Tmux, Shell aliases, and utility scripts.
 
+## 📸 Screenshot
+<img width="1663" height="1070" alt="Screenshot 2025-12-07 at 00 01 11" src="https://github.com/user-attachments/assets/b294f8ce-c795-40ae-9891-1d48beb3ed18" />
+
 ## 📁 Directory Structure
 
 ```
@@ -268,7 +271,5 @@ alias cmd='~/.config/script/tmux_layout.sh'
 
 ---
 
-## 📸 Screenshot
-<img width="1663" height="1070" alt="Screenshot 2025-12-07 at 00 01 11" src="https://github.com/user-attachments/assets/b294f8ce-c795-40ae-9891-1d48beb3ed18" />
 
 
