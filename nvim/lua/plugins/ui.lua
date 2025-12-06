@@ -145,6 +145,7 @@ return {
             filename = "[+] " .. filename
           end
 
+          ---@type string, string
           local icon, color = require("nvim-web-devicons").get_icon_color(filename)
           return { { icon, guifg = color }, { " " }, { filename } }
         end,
@@ -157,6 +158,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
       local LazyVim = require("lazyvim.util")
+      ---@type table
       opts.sections.lualine_c[4] = {
         LazyVim.lualine.pretty_path({
           length = 0,
@@ -183,5 +185,20 @@ return {
       },
     },
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
+  },
+
+  -- Neo tree
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          hide_by_name = { "node_modules", ".git" },
+          hide_gitignored = true,
+          hide_dotfiles = false,
+          visible = false,
+        },
+      },
+    },
   },
 }

@@ -3,7 +3,7 @@ return {
   {
     enabled = false,
     "folke/flash.nvim",
-    ---@type Flash.Config
+    ---@type table
     opts = {
       search = {
         forward = true,
@@ -29,7 +29,9 @@ return {
             --- @type number?, number?, number?
             local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
             --- @type string
-            local hex_color = utils.hslToHex(h, s, l)
+            local hex_color = utils.hslToHex(h or 0, s or 0, l or 0)
+            local MiniHipatterns = require("mini.hipatterns")
+
             return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
           end,
         },
@@ -74,6 +76,7 @@ return {
       {
         ";f",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.find_files({
             no_ignore = false,
@@ -85,6 +88,7 @@ return {
       {
         ";r",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.live_grep({
             additional_args = { "--hidden" },
@@ -95,6 +99,7 @@ return {
       {
         "\\\\",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.buffers()
         end,
@@ -103,6 +108,7 @@ return {
       {
         ";t",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.help_tags()
         end,
@@ -111,6 +117,7 @@ return {
       {
         ";;",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.resume()
         end,
@@ -119,6 +126,7 @@ return {
       {
         ";e",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.diagnostics()
         end,
@@ -127,6 +135,7 @@ return {
       {
         ";s",
         function()
+          ---@type table<string, fun(opts?: table)>
           local builtin = require("telescope.builtin")
           builtin.treesitter()
         end,
@@ -158,8 +167,10 @@ return {
     config = function(_, opts)
       local telescope = require("telescope")
       local actions = require("telescope.actions")
+      ---@type table<string, fun(opts?: table)>
       local fb_actions = require("telescope").extensions.file_browser.actions
 
+      ---@type table
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         wrap_results = true,
         layout_strategy = "horizontal",
@@ -194,12 +205,12 @@ return {
                 vim.cmd("startinsert")
               end,
               ["<C-u>"] = function(prompt_bufnr)
-                for i = 1, 10 do
+                for _ = 1, 10 do
                   actions.move_selection_previous(prompt_bufnr)
                 end
               end,
               ["<C-d>"] = function(prompt_bufnr)
-                for i = 1, 10 do
+                for _ = 1, 10 do
                   actions.move_selection_next(prompt_bufnr)
                 end
               end,
