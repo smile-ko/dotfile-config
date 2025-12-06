@@ -392,10 +392,52 @@ Rules:
                 vim.fn.system({ "git", "push" })
               end
 
-              -- auto close window
               vim.defer_fn(function()
                 vim.cmd("close")
               end, 50)
+            end
+          end,
+        },
+
+        NewBranch = {
+          prompt = [[
+/COPILOT_GENERATE
+
+Generate a Git branch name based on the current staged or modified changes.
+
+Rules:
+- Format: <type>/<short-description>
+- type must be one of: feat | fix | chore | refactor | docs | test
+- short-description must be lowercase, hyphen-separated, and concise
+- Keep the full branch name under 60 characters
+- Output ONLY the branch name — no explanations
+
+Examples:
+  feat/add-login-api
+  fix/session-timeout-bug
+  chore/upgrade-dependencies
+  docs/update-readme
+]],
+          selection = false,
+          context = true,
+
+          callback = function(response)
+            local text = response.text or response.content or tostring(response)
+            if not text or text == "" then
+              vim.notify("❗ No output from CopilotChat", vim.log.levels.ERROR)
+              return
+            end
+
+            local branch = text:match("([%w%-_/]+)")
+            if not branch then
+              vim.notify("⚠ Failed to extract branch name", vim.log.levels.WARN)
+              print("Returned text:\n" .. text)
+              return
+            end
+
+            if vim.fn.confirm("Checkout to new branch:\n" .. branch .. " ?", "&Yes\n&No", 2) == 1 then
+              vim.fn.system({ "git", "checkout", "-b", branch })
+              vim.notify("🚀 Switched to new branch: " .. branch)
             end
           end,
         },
