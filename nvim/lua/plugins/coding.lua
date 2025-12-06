@@ -318,95 +318,144 @@ return {
     },
   },
 
-  -- Copilot
-  {
-    "github/copilot.vim",
-    event = "InsertEnter",
-  },
-
   -- Copilot Chat
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    keys = {
+      { "<leader>aa", false, mode = { "n", "x" } }, -- disable default keymap
+      {
+        "<leader>at",
+        function()
+          return require("CopilotChat").toggle()
+        end,
+        desc = "Toggle (CopilotChat)",
+        mode = { "n", "x" },
+      },
+    },
     opts = function(_, opts)
       opts.model = "gpt-5.1-codex"
-
-      opts.show_help = false
-      opts.show_folds = false
+      opts.auto_insert_mode = false
+      opts.show_help = true
+      opts.show_folds = true
       opts.highlight_selection = false
       opts.highlight_headers = false
-      opts.auto_insert_mode = true
+      opts.auto_follow_cursor = false
+      opts.insert_at_end = true
+      opts.clear_chat_on_new_prompt = false
+      opts.chat_autocomplete = true
+
+      opts.window = {
+        layout = "float",
+        width = 0.7,
+        height = 0.6,
+        relative = "editor",
+        border = "rounded",
+        title = "Copilot Chat 🤖",
+        title_pos = "right",
+      }
 
       opts.prompts = vim.tbl_extend("force", opts.prompts or {}, {
         Commit = {
-          prompt = "#git:staged\n\nWrite commit message for the change with commitizen convention. Max 50-char title, wrap body at 72. Return in ```gitcommit``` block.",
+          prompt = [[
+#git:staged
+
+Generate a commit message using the **Conventional Commit** format.
+Requirements:
+
+- The commit must be written in **English**.
+- Title ≤ 50 characters.
+- Body text should be wrapped at 72 characters per line.
+- The result must be returned inside a code block with language ```gitcommit```.
+
+Write a clean, meaningful commit message that describes exactly what changed.
+]],
           selection = false,
           context = false,
           callback = function(response)
             ---@type string|nil
-            local commit_message = response:match("```gitcommit\n(.-)\n```")
-            if commit_message then
-              if vim.fn.confirm("Create commit?\n" .. commit_message, "&Yes\n&No", 2) == 1 then
-                vim.fn.system({ "git", "commit", "-m", commit_message })
-                if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) == 1 then
-                  vim.fn.system({ "git", "push" })
-                end
-                vim.defer_fn(function()
-                  vim.cmd("close")
-                end, 20)
+            local msg = response:match("```gitcommit\n(.-)\n```")
+            if not msg then
+              return
+            end
+            if vim.fn.confirm("Create commit with this message?\n" .. msg, "&Yes\n&No", 2) == 1 then
+              vim.fn.system({ "git", "commit", "-m", msg })
+              if vim.fn.confirm("Push to remote now?", "&Yes\n&No", 2) == 1 then
+                vim.fn.system({ "git", "push" })
               end
+              vim.defer_fn(function()
+                vim.cmd("close")
+              end, 20)
             end
           end,
         },
 
         Explain = {
-          prompt = "/COPILOT_EXPLAIN\n\nWrite an explanation for selected code in paragraph form.",
+          prompt = [[
+  /COPILOT_EXPLAIN
+
+  Giải thích đoạn code phía trên thật chi tiết và đầy đủ bằng tiếng Việt.  
+  Yêu cầu bao gồm:
+
+  - Phân tích từng phần, từng dòng hoặc từng khối logic rõ ràng.
+  - Mô tả code hoạt động ra sao, input/output là gì.
+  - Nếu có kỹ thuật, thư viện hoặc pattern được dùng → giải thích vai trò.
+  - Dùng ví dụ minh họa khi có thể.
+  - Viết thành đoạn văn dài, có cấu trúc, dễ hiểu cho người mới.
+
+  Trình bày nội dung như một lập trình viên kinh nghiệm đang hướng dẫn junior bằng tiếng việt.
+  ]],
         },
 
         Fix = {
-          prompt = "/COPILOT_GENERATE\n\nAnalyze code, find issues, correct, improve quality + efficiency.",
+          prompt = [[
+/COPILOT_GENERATE
+
+Phân tích thật chi tiết đoạn code phía trên và thực hiện các yêu cầu sau, trả lời bằng tiếng Việt:
+
+- Tìm và chỉ ra các lỗi tiềm ẩn (runtime, logic, edge cases…).
+- Giải thích vì sao đó là lỗi hoặc code chưa tốt.
+- Đề xuất cách sửa cụ thể, kèm ví dụ code đã được chỉnh sửa.
+- Nếu có thể tối ưu về hiệu năng, độ sạch code, readability → hãy nêu rõ.
+- Giải thích sự khác nhau giữa bản cũ và bản đã sửa.
+
+Trình bày theo phong cách một lập trình viên kinh nghiệm review code cho junior: rõ ràng, chi tiết, dễ hiểu.
+]],
         },
 
         Grammar = {
-          prompt = "/COPILOT_INSTRUCTIONS\n\nFix grammar without modifying syntax, formatting, variables.",
+          prompt = [[
+/COPILOT_INSTRUCTIONS
+
+Chỉnh sửa đoạn văn phía trên để:
+
+- Đúng ngữ pháp tiếng Việt.
+- Câu chữ mạch lạc, dễ đọc, dễ hiểu hơn.
+- Giữ nguyên ý nghĩa gốc của tác giả.
+- Nếu có code trong đoạn văn, tuyệt đối không thay đổi cú pháp, tên biến, tên hàm.
+
+Chỉ trả lời bằng phiên bản đã được chỉnh sửa (không cần giải thích thêm).
+]],
         },
 
         Review = {
-          prompt = "/COPILOT_REVIEW\n\nReview selected code, give suggestions, quality, structure, safety.",
+          prompt = [[
+/COPILOT_REVIEW
+
+Hãy review đoạn code đã chọn một cách toàn diện, trả lời bằng tiếng Việt, với các nội dung:
+
+- Mô tả ngắn gọn đoạn code đang làm gì.
+- Đánh giá về cấu trúc, độ rõ ràng, khả năng bảo trì.
+- Nhận xét về hiệu năng (có chỗ nào dư thừa, lặp lại, O(n) / O(n^2)… nếu có).
+- Kiểm tra các rủi ro bảo mật hoặc bug tiềm ẩn (nếu có).
+- Đề xuất cụ thể các cải tiến: đặt tên, tách hàm, refactor, thêm validate, log, comment...
+- Nếu hợp lý, đưa ra phiên bản code refactor gợi ý.
+
+Viết như một senior đang review code cho junior: thẳng thắn nhưng mang tính hướng dẫn.
+]],
         },
       })
 
-      opts.mappings = vim.tbl_extend("force", opts.mappings or {}, {
-        complete = { insert = "<Tab>" },
-        close = { normal = "<leader>x" },
-        reset = { normal = "<leader>r" },
-        submit_prompt = { normal = "<CR>", insert = "<C-s>" },
-        toggle_sticky = { normal = "<leader>ts" },
-        clear_stickies = { normal = "<leader>tS" },
-        accept_diff = { normal = "<leader>da" },
-        jump_to_diff = { normal = "<leader>dj" },
-        quickfix_answers = { normal = "<leader>qa" },
-        quickfix_diffs = { normal = "<leader>qd" },
-        yank_diff = { normal = "<leader>dy", register = '"' },
-        show_diff = { normal = "<leader>sd" },
-        show_info = { normal = "<leader>si" },
-        show_context = { normal = "<leader>sc" },
-        show_help = { normal = "<leader>h" },
-      })
-
       return opts
-    end,
-    config = function(_, opts)
-      local chat = require("CopilotChat")
-      chat.setup(opts)
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "copilot-chat",
-        callback = function()
-          vim.keymap.set("i", "<Tab>", function()
-            return require("CopilotChat.actions").complete()
-          end, { buffer = true })
-        end,
-      })
     end,
   },
 }
