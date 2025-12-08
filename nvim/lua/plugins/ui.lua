@@ -186,19 +186,4 @@ return {
     },
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
-
-  -- Neo tree
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      filesystem = {
-        filtered_items = {
-          hide_by_name = { "node_modules", ".git" },
-          hide_gitignored = true,
-          hide_dotfiles = false,
-          visible = false,
-        },
-      },
-    },
-  },
 }
