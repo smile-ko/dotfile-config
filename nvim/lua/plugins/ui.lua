@@ -65,24 +65,24 @@ return {
   {
     "snacks.nvim",
     opts = {
-      scroll = { enabled = false },
+      scroll = { enabled = true },
       dashboard = {
         preset = {
           pick = function(cmd, opts)
             return LazyVim.pick(cmd, opts)()
           end,
           header = [[
-      ___           ___                       ___       ___           ___           ___     
-     /\  \         /\__\          ___        /\__\     /\  \         /\__\         /\  \    
-    /::\  \       /::|  |        /\  \      /:/  /    /::\  \       /:/  /        /::\  \   
-   /:/\ \  \     /:|:|  |        \:\  \    /:/  /    /:/\:\  \     /:/__/        /:/\:\  \  
-  _\:\~\ \  \   /:/|:|__|__      /::\__\  /:/  /    /::\~\:\  \   /::\__\____   /:/  \:\  \ 
+      ___           ___                       ___       ___           ___           ___
+     /\  \         /\__\          ___        /\__\     /\  \         /\__\         /\  \
+    /::\  \       /::|  |        /\  \      /:/  /    /::\  \       /:/  /        /::\  \
+   /:/\ \  \     /:|:|  |        \:\  \    /:/  /    /:/\:\  \     /:/__/        /:/\:\  \
+  _\:\~\ \  \   /:/|:|__|__      /::\__\  /:/  /    /::\~\:\  \   /::\__\____   /:/  \:\  \
  /\ \:\ \ \__\ /:/ |::::\__\  __/:/\/__/ /:/__/    /:/\:\ \:\__\ /:/\:::::\__\ /:/__/ \:\__\
  \:\ \:\ \/__/ \/__/~~/:/  / /\/:/  /    \:\  \    \:\~\:\ \/__/ \/_|:|~~|~    \:\  \ /:/  /
-  \:\ \:\__\         /:/  /  \::/__/      \:\  \    \:\ \:\__\      |:|  |      \:\  /:/  / 
-   \:\/:/  /        /:/  /    \:\__\       \:\  \    \:\ \/__/      |:|  |       \:\/:/  /  
-    \::/  /        /:/  /      \/__/        \:\__\    \:\__\        |:|  |        \::/  /   
-     \/__/         \/__/                     \/__/     \/__/         \|__|         \/__/    
+  \:\ \:\__\         /:/  /  \::/__/      \:\  \    \:\ \:\__\      |:|  |      \:\  /:/  /
+   \:\/:/  /        /:/  /    \:\__\       \:\  \    \:\ \/__/      |:|  |       \:\/:/  /
+    \::/  /        /:/  /      \/__/        \:\__\    \:\__\        |:|  |        \::/  /
+     \/__/         \/__/                     \/__/     \/__/         \|__|         \/__/
  ]],
         -- stylua: ignore
         ---@type snacks.dashboard.Item[]
@@ -106,6 +106,7 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
       { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
       { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
@@ -114,8 +115,8 @@ return {
       options = {
         mode = "tabs",
         -- separator_style = "slant",
-        show_buffer_close_icons = false,
-        show_close_icon = false,
+        show_buffer_close_icons = true,
+        show_close_icon = true,
       },
     },
   },
