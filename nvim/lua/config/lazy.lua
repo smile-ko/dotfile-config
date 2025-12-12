@@ -43,6 +43,9 @@ require("lazy").setup({
     -- ai support code completion
     { import = "lazyvim.plugins.extras.ai.copilot" },
     { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+    -- coding
+    { import = "lazyvim.plugins.extras.coding.neogen" },
+
     -- utils
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "plugins" },

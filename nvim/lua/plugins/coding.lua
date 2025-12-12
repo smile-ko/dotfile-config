@@ -1,19 +1,4 @@
 return {
-  -- Create annotations with one keybind, and jump your cursor in the inserted annotation
-  {
-    "danymat/neogen",
-    keys = {
-      {
-        "<leader>cc",
-        function()
-          require("neogen").generate({})
-        end,
-        desc = "Neogen Comment",
-      },
-    },
-    opts = { snippet_engine = "luasnip" },
-  },
-
   -- Incremental rename
   {
     "smjonas/inc-rename.nvim",
@@ -402,32 +387,29 @@ Rules:
         Explain = {
           prompt = [[
   /COPILOT_EXPLAIN
-
-  Giải thích đoạn code phía trên thật chi tiết và đầy đủ bằng tiếng Việt.  
-  Yêu cầu bao gồm:
-
-  - Phân tích từng phần, từng dòng hoặc từng khối logic rõ ràng.
-  - Mô tả code hoạt động ra sao, input/output là gì.
-  - Nếu có kỹ thuật, thư viện hoặc pattern được dùng → giải thích vai trò.
-  - Dùng ví dụ minh họa khi có thể.
-  - Viết thành đoạn văn dài, có cấu trúc, dễ hiểu cho người mới.
-
-  Trình bày nội dung như một lập trình viên kinh nghiệm đang hướng dẫn junior bằng tiếng việt.
+Giải thích đoạn code phía trên thật chi tiết và đầy đủ bằng tiếng Việt.
+Yêu cầu bao gồm:
+- Phân tích rõ ràng từng phần, từng dòng hoặc từng khối logic của đoạn code.
+- Mô tả code hoạt động như thế nào, input/output của mỗi hàm là gì.
+- Nếu có kỹ thuật, thư viện hoặc design pattern được sử dụng → giải thích ý nghĩa và lý do sử dụng.
+- Nếu có generic, infer, decorator, DI… → giải thích chúng hoạt động ra sao.
+- Dùng ví dụ minh họa khi có thể để junior dễ hình dung.
+- Chỉ rõ vai trò và tương tác giữa các class/hàm trong toàn bộ flow.
+- Nếu đoạn code có điểm tốt/chưa tốt → nêu nhận xét để junior hiểu sâu hơn.
+Trình bày nội dung như một lập trình viên kinh nghiệm (senior) đang hướng dẫn cho một bạn junior, văn phong thân thiện, chi tiết và dễ hiểu.
+Ưu tiên giải thích từng khối logic theo thứ tự xuất hiện trong code.
   ]],
         },
 
         Fix = {
           prompt = [[
 /COPILOT_GENERATE
-
 Phân tích thật chi tiết đoạn code phía trên và thực hiện các yêu cầu sau, trả lời bằng tiếng Việt:
-
 - Tìm và chỉ ra các lỗi tiềm ẩn (runtime, logic, edge cases…).
 - Giải thích vì sao đó là lỗi hoặc code chưa tốt.
 - Đề xuất cách sửa cụ thể, kèm ví dụ code đã được chỉnh sửa.
 - Nếu có thể tối ưu về hiệu năng, độ sạch code, readability → hãy nêu rõ.
 - Giải thích sự khác nhau giữa bản cũ và bản đã sửa.
-
 Trình bày theo phong cách một lập trình viên kinh nghiệm review code cho junior: rõ ràng, chi tiết, dễ hiểu.
 ]],
         },
@@ -435,14 +417,11 @@ Trình bày theo phong cách một lập trình viên kinh nghiệm review code 
         Grammar = {
           prompt = [[
 /COPILOT_INSTRUCTIONS
-
 Chỉnh sửa đoạn văn phía trên để:
-
 - Đúng ngữ pháp tiếng Việt.
 - Câu chữ mạch lạc, dễ đọc, dễ hiểu hơn.
 - Giữ nguyên ý nghĩa gốc của tác giả.
 - Nếu có code trong đoạn văn, tuyệt đối không thay đổi cú pháp, tên biến, tên hàm.
-
 Chỉ trả lời bằng phiên bản đã được chỉnh sửa (không cần giải thích thêm).
 ]],
         },
@@ -450,16 +429,13 @@ Chỉ trả lời bằng phiên bản đã được chỉnh sửa (không cần 
         Review = {
           prompt = [[
 /COPILOT_REVIEW
-
 Hãy review đoạn code đã chọn một cách toàn diện, trả lời bằng tiếng Việt, với các nội dung:
-
 - Mô tả ngắn gọn đoạn code đang làm gì.
 - Đánh giá về cấu trúc, độ rõ ràng, khả năng bảo trì.
 - Nhận xét về hiệu năng (có chỗ nào dư thừa, lặp lại, O(n) / O(n^2)… nếu có).
 - Kiểm tra các rủi ro bảo mật hoặc bug tiềm ẩn (nếu có).
 - Đề xuất cụ thể các cải tiến: đặt tên, tách hàm, refactor, thêm validate, log, comment...
 - Nếu hợp lý, đưa ra phiên bản code refactor gợi ý.
-
 Viết như một senior đang review code cho junior: thẳng thắn nhưng mang tính hướng dẫn.
 ]],
         },
