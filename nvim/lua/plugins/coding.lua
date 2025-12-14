@@ -359,6 +359,7 @@ return {
 
         -- Fallback to vim.fn.system (older nvim)
         local joined = table.concat(cmd, " ")
+        ---@type string
         local out
         if stdin ~= nil then
           out = vim.fn.system(joined, stdin)
@@ -395,6 +396,7 @@ return {
       end
 
       local function git_commit_with_message(message)
+        ---@type string
         message = trim(message)
         if message == "" then
           return false, "Empty commit message"
@@ -456,6 +458,7 @@ Rules:
             end
 
             local commit_message = text:match("```gitcommit\n(.-)\n```")
+            ---@type string
             commit_message = trim(commit_message)
 
             if not commit_message or commit_message == "" then
@@ -485,7 +488,9 @@ Rules:
             if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) ~= 1 then
               -- close CopilotChat window if you want
               vim.defer_fn(function()
-                pcall(vim.cmd, "close")
+                pcall(function()
+                  vim.cmd("close")
+                end)
               end, 50)
               return
             end
@@ -499,7 +504,9 @@ Rules:
             notify("Pushed successfully", vim.log.levels.INFO)
 
             vim.defer_fn(function()
-              pcall(vim.cmd, "close")
+              pcall(function()
+                vim.cmd("close")
+              end)
             end, 50)
           end,
         },
