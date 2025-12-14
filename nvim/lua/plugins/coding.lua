@@ -311,13 +311,14 @@ return {
       {
         "<leader>at",
         function()
-          return require("CopilotChat").toggle()
+          require("CopilotChat").toggle()
         end,
         desc = "Toggle (CopilotChat)",
         mode = { "n", "x" },
       },
     },
     opts = function(_, opts)
+      -- Core options
       opts.model = "gpt-5.1-codex"
       opts.auto_insert_mode = false
       opts.show_help = true
@@ -329,6 +330,7 @@ return {
       opts.clear_chat_on_new_prompt = false
       opts.chat_autocomplete = true
 
+      -- Window UI
       opts.window = {
         layout = "float",
         width = 0.7,
@@ -339,7 +341,98 @@ return {
         title_pos = "right",
       }
 
+      -- Helpers (git)
+      local function notify(msg, level)
+        vim.notify(msg, level or vim.log.levels.INFO, { title = "CopilotChat" })
+      end
+
+      local function trim(s)
+        return (s or ""):gsub("^%s+", ""):gsub("%s+$", "")
+      end
+
+      local function system_capture(cmd, stdin)
+        -- Prefer vim.system (nvim >= 0.10)
+        if vim.system then
+          local res = vim.system(cmd, { text = true, stdin = stdin }):wait()
+          return res.code or 1, res.stdout or "", res.stderr or ""
+        end
+
+        -- Fallback to vim.fn.system (older nvim)
+        local joined = table.concat(cmd, " ")
+        local out
+        if stdin ~= nil then
+          out = vim.fn.system(joined, stdin)
+        else
+          out = vim.fn.system(joined)
+        end
+        local code = vim.v.shell_error
+        return code, out or "", ""
+      end
+
+      local function git_current_branch()
+        local code, out = system_capture({ "git", "branch", "--show-current" })
+        if code ~= 0 then
+          return nil
+        end
+        return trim(out)
+      end
+
+      local function git_has_upstream()
+        local code = system_capture({
+          "git",
+          "rev-parse",
+          "--abbrev-ref",
+          "--symbolic-full-name",
+          "@{u}",
+        })
+        return code == 0
+      end
+
+      local function git_has_staged()
+        -- exit 0 when there are changes, 1 when none
+        local code = system_capture({ "git", "diff", "--cached", "--quiet" })
+        return code ~= 0
+      end
+
+      local function git_commit_with_message(message)
+        message = trim(message)
+        if message == "" then
+          return false, "Empty commit message"
+        end
+
+        -- Use -F - to support multi-line commit messages safely
+        local code, _, err = system_capture({ "git", "commit", "-F", "-" }, message)
+        if code ~= 0 then
+          return false, trim(err) ~= "" and trim(err) or "git commit failed"
+        end
+        return true
+      end
+
+      local function git_push_smart()
+        local branch = git_current_branch()
+        if not branch or branch == "" then
+          return false, "Cannot detect current branch"
+        end
+
+        if git_has_upstream() then
+          local code, _, err = system_capture({ "git", "push" })
+          if code ~= 0 then
+            return false, trim(err) ~= "" and trim(err) or "git push failed"
+          end
+          return true
+        end
+
+        -- First push for new branch
+        local code, _, err = system_capture({ "git", "push", "-u", "origin", branch })
+        if code ~= 0 then
+          return false, trim(err) ~= "" and trim(err) or ("git push -u origin " .. branch .. " failed")
+        end
+        return true
+      end
+
+      -- Prompts
       opts.prompts = vim.tbl_extend("force", opts.prompts or {}, {
+
         Commit = {
           prompt = [[
 #git:staged
@@ -355,38 +448,65 @@ Rules:
           selection = false,
 
           callback = function(response)
-            local text = response.text or response.content or tostring(response)
+            local text = response.text or response.content or tostring(response or "")
 
-            if not text or text == "" then
-              vim.notify("❗ No response text from CopilotChat", vim.log.levels.ERROR)
+            if trim(text) == "" then
+              notify("❗ No response text from CopilotChat", vim.log.levels.ERROR)
               return
             end
 
             local commit_message = text:match("```gitcommit\n(.-)\n```")
+            commit_message = trim(commit_message)
 
-            if not commit_message then
-              vim.notify("⚠ Could not extract commit message — print returned text for debug", vim.log.levels.WARN)
+            if not commit_message or commit_message == "" then
+              notify("⚠ Could not extract commit message. Printing raw output...", vim.log.levels.WARN)
               print(text)
               return
             end
 
-            if vim.fn.confirm("Create commit?\n\n" .. commit_message, "&Yes\n&No", 2) == 1 then
-              vim.fn.system({ "git", "commit", "-m", commit_message })
-
-              if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) == 1 then
-                vim.fn.system({ "git", "push" })
-              end
-
-              vim.defer_fn(function()
-                vim.cmd("close")
-              end, 50)
+            -- Safety: staged check
+            if not git_has_staged() then
+              notify("⚠ No staged changes. Stage files first (git add ...).", vim.log.levels.WARN)
+              return
             end
+
+            if vim.fn.confirm("Create commit?\n\n" .. commit_message, "&Yes\n&No", 2) ~= 1 then
+              return
+            end
+
+            local ok, err = git_commit_with_message(commit_message)
+            if not ok then
+              notify("Commit failed: " .. (err or "unknown error"), vim.log.levels.ERROR)
+              return
+            end
+
+            notify("Commit created", vim.log.levels.INFO)
+
+            if vim.fn.confirm("Push to remote?", "&Yes\n&No", 2) ~= 1 then
+              -- close CopilotChat window if you want
+              vim.defer_fn(function()
+                pcall(vim.cmd, "close")
+              end, 50)
+              return
+            end
+
+            local pushed, perr = git_push_smart()
+            if not pushed then
+              notify("Push failed: " .. (perr or "unknown error"), vim.log.levels.ERROR)
+              return
+            end
+
+            notify("Pushed successfully", vim.log.levels.INFO)
+
+            vim.defer_fn(function()
+              pcall(vim.cmd, "close")
+            end, 50)
           end,
         },
 
         Explain = {
           prompt = [[
-  /COPILOT_EXPLAIN
+/COPILOT_EXPLAIN
 Giải thích đoạn code phía trên thật chi tiết và đầy đủ bằng tiếng Việt.
 Yêu cầu bao gồm:
 - Phân tích rõ ràng từng phần, từng dòng hoặc từng khối logic của đoạn code.
@@ -398,7 +518,7 @@ Yêu cầu bao gồm:
 - Nếu đoạn code có điểm tốt/chưa tốt → nêu nhận xét để junior hiểu sâu hơn.
 Trình bày nội dung như một lập trình viên kinh nghiệm (senior) đang hướng dẫn cho một bạn junior, văn phong thân thiện, chi tiết và dễ hiểu.
 Ưu tiên giải thích từng khối logic theo thứ tự xuất hiện trong code.
-  ]],
+]],
         },
 
         Fix = {
