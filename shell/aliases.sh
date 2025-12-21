@@ -38,15 +38,17 @@ alias tright='tmux select-pane -R'
 alias tup='tmux select-pane -U'
 alias tdown='tmux select-pane -D'
 
-# DevPod
+# devPod
+alias dp='devpod'
 alias dpu='devpod up'
 alias dpd='devpod down'
 alias dps='devpod ssh'
 alias dpl='devpod list'
 alias dpk='devpod stop'
 alias dpr='devpod reset'
+alias dpdel='devpod delete'
 
-# Workspace
+# workspace
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
 # script
