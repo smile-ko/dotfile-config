@@ -40,9 +40,9 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.cmake" },
-    -- ai support code completion
+    -- ai coding
     { import = "lazyvim.plugins.extras.ai.copilot" },
-    { import = "lazyvim.plugins.extras.ai.copilot-chat" },
+    { import = "lazyvim.plugins.extras.ai.avante" },
     -- coding
     { import = "lazyvim.plugins.extras.coding.neogen" },
 
@@ -67,8 +67,8 @@ require("lazy").setup({
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
+        "matchit",
+        "matchparen",
         "netrwPlugin",
         "rplugin",
         "tarPlugin",

@@ -79,4 +79,9 @@ iterm2/
 
 # Htop
 htop/
+
+#git
 lazygit
+
+# avante 
+avante.nvim/
