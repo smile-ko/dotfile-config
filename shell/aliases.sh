@@ -24,6 +24,7 @@ alias vim='nvim'
 alias system='htop'
 alias google-s='open -a Google\ Chrome "https://google.com"'
 alias google='open -a Google\ Chrome'
+alias cursor-cli="agent"
 
 # tmux
 alias tnew='tmux new -s'
