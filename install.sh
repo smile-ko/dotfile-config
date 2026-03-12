@@ -232,6 +232,10 @@ create_symlink() {
 setup_symlinks() {
   log "Creating symlinks..."
 
+  # ensure config dirs exist
+  mkdir -p "$HOME/.config"
+  mkdir -p "$HOME/.config/shell"
+
   # nvim config
   create_symlink "$DOTFILES_DIR/nvim" "$CONFIG_DIR/nvim"
 
@@ -241,6 +245,7 @@ setup_symlinks() {
   # shell aliases
   local aliases_source="$DOTFILES_DIR/shell/aliases.sh"
   local aliases_target="$HOME/.config/shell/aliases.sh"
+
   if [[ "$DOTFILES_DIR" != "$CONFIG_DIR" ]]; then
     create_symlink "$aliases_source" "$aliases_target"
   fi
