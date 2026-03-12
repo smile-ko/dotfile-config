@@ -79,8 +79,6 @@ install_apt_packages() {
     build-essential
     python3
     python3-pip
-    nodejs
-    npm
   )
 
   log "Updating apt package list..."
@@ -95,6 +93,24 @@ install_apt_packages() {
       run "sudo apt install -y $pkg" && success "$pkg installed" || warn "Failed to install $pkg"
     fi
   done
+}
+
+install_node() {
+  if command_exists node; then
+    local major
+    major=$(node -v | cut -d. -f1 | tr -d v)
+    if [[ "$major" -ge 22 ]]; then
+      success "Node already >=22 ($(node -v))"
+      return
+    fi
+  fi
+
+  log "Installing Node.js ..."
+
+  run "curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -"
+  run "sudo apt install -y nodejs"
+
+  success "Node installed: $(node -v)"
 }
 
 install_neovim() {
