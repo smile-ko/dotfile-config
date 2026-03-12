@@ -183,6 +183,11 @@ install_powerlevel10k() {
 }
 
 setup_zsh_as_default() {
+  if [[ -n "${DEVCONTAINER:-}" ]] || [[ -n "${CODESPACES:-}" ]]; then
+    warn "Running inside devcontainer, skipping chsh"
+    return
+  fi
+
   local zsh_path
   zsh_path="$(command -v zsh)"
 
@@ -192,11 +197,7 @@ setup_zsh_as_default() {
   fi
 
   log "Setting zsh as default shell..."
-  if ! grep -q "$zsh_path" /etc/shells; then
-    run "echo $zsh_path | sudo tee -a /etc/shells"
-  fi
-  run "chsh -s $zsh_path"
-  success "Default shell changed to zsh (takes effect on next login)"
+  chsh -s "$zsh_path" || warn "Failed to change shell"
 }
 
 # Symlinks
