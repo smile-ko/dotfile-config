@@ -104,10 +104,10 @@ install_neovim() {
   fi
 
   log "Installing neovim..."
-  local nvim_url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
-  run "curl -fsSL $nvim_url -o /tmp/nvim-linux64.tar.gz"
-  run "sudo tar -C /usr/local -xzf /tmp/nvim-linux64.tar.gz --strip-components=1"
-  run "rm /tmp/nvim-linux64.tar.gz"
+  local nvim_url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+  run "curl -fsSL $nvim_url -o /tmp/nvim.tar.gz"
+  run "sudo tar -C /usr/local -xzf /tmp/nvim.tar.gz --strip-components=1"
+  run "rm /tmp/nvim.tar.gz"
   success "neovim installed"
 }
 
