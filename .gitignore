@@ -80,8 +80,11 @@ iterm2/
 # Htop
 htop/
 
-#git
+# Git
 lazygit
 
-# avante 
+# Avante
 avante.nvim/
+
+# Cursor
+cursor/

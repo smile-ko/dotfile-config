@@ -21,10 +21,8 @@ alias update='sudo apt update'
 alias upgrade='sudo apt upgrade -y'
 alias cls='clear'
 alias vim='nvim'
-alias system='htop'
 alias google-s='open -a Google\ Chrome "https://google.com"'
 alias google='open -a Google\ Chrome'
-alias cursor-cli="agent"
 
 # tmux
 alias tnew='tmux new -s'
@@ -32,12 +30,6 @@ alias tls='tmux ls'
 alias ta='tmux attach -t'
 alias td='tmux detach'
 alias tk='tmux kill-session'
-alias tsplitv='tmux split-window -v'
-alias tsplith='tmux split-window -h'
-alias tleft='tmux select-pane -L'
-alias tright='tmux select-pane -R'
-alias tup='tmux select-pane -U'
-alias tdown='tmux select-pane -D'
 
 # devPod
 alias dp='devpod'
@@ -53,5 +45,4 @@ alias dpdel='devpod delete'
 alias wp='cd ~/workspaces && echo "My Workspace::" && ls'
 
 # script
-alias cmd='~/.config/script/tmux_layout.sh'
 alias config='cd ~/.config'
